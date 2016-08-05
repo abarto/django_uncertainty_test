@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import uncertainty as u
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -127,3 +128,7 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': []
 }
+
+DJANGO_UNCERTAINTY = u.cond(
+    u.path_is('^/api'), u.random_choice([
+        (u.delay(u.default(), 5), 0.3), (u.server_error(), 0.2)]))
