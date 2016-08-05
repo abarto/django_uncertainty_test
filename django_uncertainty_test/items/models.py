@@ -1,3 +1,5 @@
-from django.db import models
+from django_extensions.db.models import TitleSlugDescriptionModel, TimeStampedModel
 
-# Create your models here.
+
+class Item(TitleSlugDescriptionModel, TimeStampedModel):
+    pass
