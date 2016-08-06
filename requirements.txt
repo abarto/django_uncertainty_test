@@ -2,3 +2,4 @@ Django==1.10
 django-extensions==1.6.7
 djangorestframework==3.4.3
 django-uncertainty==1.1
+gunicorn==19.6.0

@@ -125,10 +125,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(os.path.abspath(BASE_DIR), 'static')
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': []
 }
 
-DJANGO_UNCERTAINTY = u.cond(
-    u.path_is('^/api'), u.random_choice([
-        (u.delay(u.default(), 5), 0.3), (u.server_error(), 0.2)]))
+DJANGO_UNCERTAINTY = u.random_choice([
+    (u.server_error(), 0.3),
+    (u.forbidden(), 0.2)
+])
