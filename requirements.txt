@@ -1,5 +1,5 @@
-Django==1.10
-django-extensions==1.6.7
-djangorestframework==3.4.3
-django-uncertainty==1.1
+Django==1.10.5
+django-extensions==1.7.6
+djangorestframework==3.5.4
+django-uncertainty==1.5
 gunicorn==19.6.0
