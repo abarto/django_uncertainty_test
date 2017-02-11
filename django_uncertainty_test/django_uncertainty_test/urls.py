@@ -18,13 +18,16 @@ from django.contrib import admin
 
 from rest_framework import routers
 from items.views import ItemViewSet
-
+from .views import test_stream
 
 router = routers.DefaultRouter()
 router.register(r'items', ItemViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^test_stream', test_stream),
+    url(r'^test_stream_slow', test_stream),
+    url(r'^test_stream_random', test_stream),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

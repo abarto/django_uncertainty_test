@@ -131,7 +131,29 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': []
 }
 
-DJANGO_UNCERTAINTY = u.random_choice([
-    (u.server_error(), 0.3),
-    (u.forbidden(), 0.2)
-])
+# DJANGO_UNCERTAINTY = u.random_choice([
+#     (u.server_error(), 0.3),
+#     (u.forbidden(), 0.2)
+# ])
+
+DJANGO_UNCERTAINTY = u.multi_conditional([
+    (u.path_matches('^/api'), u.random_choice([(u.server_error(), 0.3), (u.forbidden(), 0.2)])),
+    (u.path_matches('^/test_stream_slow'), u.slowdown(1.0)),
+    (u.path_matches('^/test_stream_random'), u.random_stop(0.2, stop_gracefully=False))
+], default_behaviour=u.default())
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
